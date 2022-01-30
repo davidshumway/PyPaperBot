@@ -23,8 +23,8 @@ def scholar_requests(scholar_pages, url, restrict, scholar_results=10):
     for i in scholar_pages:
         while True:
             res_url = url % (scholar_results * (i - 1))
-            html = requests.get(res_url, headers=NetInfo.HEADERS)
-            html = html.text
+            h = requests.get(res_url, headers=NetInfo.HEADERS)
+            html = h.text
 
             if javascript_error in html:
                 is_continue = waithIPchange()
@@ -43,7 +43,10 @@ def scholar_requests(scholar_pages, url, restrict, scholar_results=10):
 
             to_download.append(papersInfo)
         else:
-            print("Paper not found...")
+            print("Paper not found. Status code: {}. Saving Google Scholar page to \"error.html\" for later inspection.".format(h.status_code))
+            with open('error.html', 'w') as err:
+                err.write(html)
+            
 
     return to_download
 
