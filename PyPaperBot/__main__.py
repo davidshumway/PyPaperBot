@@ -10,7 +10,7 @@ from .Scholar import ScholarPapersInfo
 from .Crossref import getPapersInfoFromDOIs
 from .proxy import proxy
 
-def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, num_limit=None, num_limit_type=None, filter_jurnal_file=None, restrict=None, DOIs=None, SciHub_URL=None, verbose=True):
+def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, num_limit=None, num_limit_type=None, filter_jurnal_file=None, restrict=None, DOIs=None, SciHub_URL=None):
 
     to_download = []
     if DOIs==None:
@@ -43,7 +43,7 @@ def start(query, scholar_results, scholar_pages, dwn_dir, proxy, min_date=None, 
         if num_limit_type!=None and num_limit_type==1:
             to_download.sort(key=lambda x: int(x.cites_num) if x.cites_num!=None else 0, reverse=True)
 
-        downloadPapers(to_download, dwn_dir, num_limit, SciHub_URL, verbose)
+        downloadPapers(to_download, dwn_dir, num_limit, SciHub_URL)
 
 
     Paper.generateReport(to_download,dwn_dir+"result.csv")
