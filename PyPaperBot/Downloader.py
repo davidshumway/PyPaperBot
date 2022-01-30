@@ -43,7 +43,7 @@ def saveFile(file_name,content, paper,dwn_source):
     paper.downloaded = True
     paper.downloadedFrom = dwn_source
 
-def downloadPapers(papers, dwnl_dir, num_limit, SciHub_URL=None):
+def downloadPapers(papers, dwnl_dir, num_limit, SciHub_URL=None, verbose=True):
     def URLjoin(*args):
         return "/".join(map(lambda x: str(x).rstrip('/'), args))
 
