@@ -17,14 +17,14 @@ def waithIPchange():
             time.sleep(30)
             return True
 
-def scholar_requests(scholar_pages, url, restrict, scholar_results=10):
+def scholar_requests(scholar_pages, url, restrict, scholar_results=10, verbose=True):
     javascript_error = "Sorry, we can't verify that you're not a robot when JavaScript is turned off"
     to_download = []
     for i in scholar_pages:
         while True:
             res_url = url % (scholar_results * (i - 1))
-            html = requests.get(res_url, headers=NetInfo.HEADERS)
-            html = html.text
+            h = requests.get(res_url, headers=NetInfo.HEADERS)
+            html = h.text
 
             if javascript_error in html:
                 is_continue = waithIPchange()
@@ -47,6 +47,10 @@ def scholar_requests(scholar_pages, url, restrict, scholar_results=10):
             to_download.append(papersInfo)
         else:
             print("Paper not found...")
+            if verbose is True:
+                print('url:', url)
+                print('html:', html)
+                print('status code:', h.status_code)
 
     return to_download
 
